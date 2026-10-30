@@ -23,6 +23,10 @@ pub struct Args {
 
     #[arg(short, long, env = "BILI_SYNC_FFMPEG_PATH")]
     pub ffmpeg_path: Option<String>,
+
+    /// 启动后直接隐藏到系统托盘（供开机自启使用）
+    #[arg(long, env = "BILI_SYNC_TRAY")]
+    pub tray: bool,
 }
 
 mod built_info {

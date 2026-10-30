@@ -5,3 +5,7 @@ debug*
 node_modules
 docs/.vitepress/cache
 docs/.vitepress/dist
+
+# 本 fork 新增：编译产物不入库
+/bili-sync-rs.exe
+web/build

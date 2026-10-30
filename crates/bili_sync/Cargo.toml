@@ -68,6 +68,13 @@ validator = { workspace = true }
 built = { workspace = true }
 git2 = { workspace = true }
 
+# 桌面壳依赖：只在 Windows 下参与编译，Linux/macOS 与 Docker 构建不受影响
+[target.'cfg(target_os = "windows")'.dependencies]
+eframe = { workspace = true }
+tray-icon = { workspace = true }
+image = { workspace = true }
+winreg = { workspace = true }
+
 [package.metadata.release]
 release = true
 

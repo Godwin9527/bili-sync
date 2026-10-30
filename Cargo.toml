@@ -94,6 +94,12 @@ ua_generator = { version = "0.5.70", default-features = false }
 uuid = { version = "1.23.5", features = ["v4"] }
 validator = { version = "0.20.0", features = ["derive"] }
 
+# Windows 桌面壳（图形界面 + 系统托盘 + 开机自启），仅 Windows 目标编译
+eframe = { version = "0.37.0", default-features = false, features = ["glow", "default_fonts"] }
+tray-icon = "0.26.1"
+image = { version = "0.25.10", default-features = false, features = ["png"] }
+winreg = "0.56.0"
+
 [workspace.metadata.release]
 release = false
 tag-message = ""

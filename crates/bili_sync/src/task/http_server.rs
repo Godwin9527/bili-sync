@@ -14,6 +14,7 @@ use sea_orm::DatabaseConnection;
 use crate::api::{LogHelper, router};
 use crate::bilibili::BiliClient;
 use crate::config::{VersionedConfig, default_bind_address};
+use crate::shell::Shell;
 
 #[derive(RustEmbed)]
 #[preserve_source = false]
@@ -24,6 +25,7 @@ pub async fn http_server(
     database_connection: DatabaseConnection,
     bili_client: Arc<BiliClient>,
     log_writer: LogHelper,
+    shell: Arc<Shell>,
 ) -> Result<()> {
     let app = router()
         .fallback_service(get(frontend_files).head(frontend_files))
@@ -54,6 +56,9 @@ pub async fn http_server(
         }
     };
     info!("开始运行管理页：http://{}", bind_address);
+    // 通知桌面壳服务已就绪，供界面显示状态并跳转浏览器
+    shell.set_bind_address(&bind_address);
+    shell.set_running(true);
     Ok(axum::serve(listener, ServiceExt::<Request>::into_make_service(app)).await?)
 }
 
