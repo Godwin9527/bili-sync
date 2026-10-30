@@ -347,7 +347,28 @@ git merge upstream/main
 
 ---
 
-## 10. 变更记录
+## 10. Git 与产物管理
+
+| 项 | 说明 |
+|---|---|
+| 远程仓库 | `https://github.com/Godwin9527/bili-sync.git`（origin，分支 `main`） |
+| 首次桌面化提交 | `e277b17` feat: 新增 Windows 桌面壳（图形界面 / 系统托盘 / 开机自启） |
+
+**编译产物不入库**，`.gitignore` 中新增：
+
+```
+/bili-sync-rs.exe
+web/build
+```
+
+原因：`bili-sync-rs.exe` 25 MB，`web/build` 1.6 MB，每次改动都会让仓库膨胀。
+因此**从 GitHub clone 下来后必须自行构建**才能得到可执行文件，构建步骤见第 5 节。
+
+`Cargo.lock`、`web/pnpm-lock.yaml` 正常入库，保证构建可复现。
+
+---
+
+## 11. 变更记录
 
 ### 2026-10-30 首次桌面化改造
 
@@ -388,3 +409,8 @@ git merge upstream/main
 1. **首次 `cargo build --release` 进程僵死**：跑到 8 分钟后 rustc 的 CPU 时间停止增长、19 分钟无新产物。杀掉进程重新构建后 2m32s 完成。怀疑与杀毒软件/文件锁有关，**不是代码问题**。若再次遇到，直接杀 `cargo`/`rustc` 重跑即可。
 2. **GNU 工具链误选**：见 5.3。
 3. **eframe 0.37 API 大改**：见 4.9，`update` 已被拆成 `logic` + `ui`。
+
+**Git 操作记录**
+
+- 提交 `e277b17` 并推送到 `origin/main`（12 个文件，+6231 / -82）
+- `.gitignore` 新增 `/bili-sync-rs.exe`、`web/build`，产物不入库
